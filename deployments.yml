@@ -1,0 +1,47 @@
+#deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petty-deployment
+  namespace: default
+  labels:
+    app: pettyapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pettyapp
+      tier: frontend
+      version: 1.0.0
+#pod tempalte
+  template:
+    metadata:
+      labels:
+        app: pettyapp
+        tier: frontend
+        version: 1.0.0
+    spec: # Pod spec
+      containers:
+      - name: petty-container
+        image: ooghenekaro/maven-demo:latest
+        ports:
+        - containerPort: 8080
+        
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: petty-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+  labels:
+    app: pettyapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: pettyapp
