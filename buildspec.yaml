@@ -27,7 +27,6 @@ phases:
       - git clone https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/${GITHUB_USERNAME}/argocd-manifest.git
       - cd argocd-manifest
       - echo Updating deployment.yml...
-      - cat deployment.yml
       - sed -i "s+image: ${REPOSITORY_URI}:.*+image: ${REPOSITORY_URI}:${IMAGE_TAG}+g" deployment.yml
       - cat deployment.yml
       - git add deployment.yml
