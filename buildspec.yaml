@@ -31,7 +31,7 @@ phases:
       - cd argocd-manifest
 
       - echo Updating deployment.yml...
-      - sed -i "s+image: ${REPOSITORY_URI}:.*+image: ${REPOSITORY_URI}:${IMAGE_TAG}+g" deployment.yml
+      - 'sed -i "s+image: ${REPOSITORY_URI}:.*+image: ${REPOSITORY_URI}:${IMAGE_TAG}+g" deployment.yml'
       - cat deployment.yml
 
       - git add deployment.yml
